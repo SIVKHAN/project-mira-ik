@@ -1,0 +1,1613 @@
+{
+  "name": "Project Mira - Core Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1llyusEEddm4z9KKQhmtX5NmYbHifXq1L",
+          "mode": "list",
+          "cachedResultName": "Mira_project_description.txt",
+          "cachedResultUrl": "https://drive.google.com/file/d/1llyusEEddm4z9KKQhmtX5NmYbHifXq1L/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        928,
+        0
+      ],
+      "id": "88fdc2d1-6778-4cbe-a96c-8a17d101ac1e",
+      "name": "Project_description",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1qHGyeilrDtOPPKu6YEQTv_a6XxttD6qh",
+          "mode": "list",
+          "cachedResultName": "Mira_project_risks.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/1qHGyeilrDtOPPKu6YEQTv_a6XxttD6qh/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        928,
+        160
+      ],
+      "id": "dc345027-ab3c-4282-93df-1aad2358881a",
+      "name": "Project_risks",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "16sYvfvBpOgoul9p0uDb4eb1PFF80ZEH_",
+          "mode": "list",
+          "cachedResultName": "Mira_project_timeline.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/16sYvfvBpOgoul9p0uDb4eb1PFF80ZEH_/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        928,
+        304
+      ],
+      "id": "47e37b74-8e71-44b3-ac69-30774e786bc6",
+      "name": "Project_timeline",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1yiK07fGLREs82uDm0C3LAxVu-VX20JPn",
+          "mode": "list",
+          "cachedResultName": "Mira_sample_task_board.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/1yiK07fGLREs82uDm0C3LAxVu-VX20JPn/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        928,
+        480
+      ],
+      "id": "de2403f4-b223-4d92-a7ab-b4939ba27af8",
+      "name": "Sample_task_bar",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        0
+      ],
+      "id": "f9f82a25-15e5-4c98-b167-4fc5d0e78938",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        160
+      ],
+      "id": "30b88184-500f-40db-9738-4adda3e7136d",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        304
+      ],
+      "id": "c2311ca0-9dd2-4aaf-88c6-242846a66603",
+      "name": "Extract from File2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        480
+      ],
+      "id": "de8e6f92-3a57-447f-808e-673ddd4cf5bb",
+      "name": "Extract from File3"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI",
+          "cachedResultUrl": ""
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "={{ $('Langfuse').item.json.prompt }}"
+            },
+            {
+              "content": "={{ $('Chat Trigger').item.json.chatInput }}"
+            },
+            {
+              "role": "system",
+              "content": "ROUTING GUARDRAIL: If the user input is vague, off-topic, or lacks clear project intent (e.g., \"We want to build a chatbot\" or \"New project starting soon\"), you must NOT output DESCRIPTION, RISKS, TIMELINE, or TASKS. Instead, output an out-of-scope or refusal token so the switch node routes it to the fallback error handler."
+            }
+          ]
+        },
+        "simplify": false,
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        272,
+        240
+      ],
+      "id": "3991d25c-eabb-4892-9bc1-d25d86297407",
+      "name": "Dispatcher Agent",
+      "credentials": {
+        "openAiApi": {
+          "id": "M0KjEvqLoxpqPPm7",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Dispatcher Agent').item.json.output[0].content[0].text }}",
+                    "rightValue": "DESCRIPTION",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "59b7e09e-ef3e-4074-8857-c59f4a64bf0a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Description Branch"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c70d2587-e521-4b34-9167-644d02bfb630",
+                    "leftValue": "={{ $('Dispatcher Agent').item.json.output[0].content[0].text }}",
+                    "rightValue": "RISKS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Risk Branch"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d5a68ece-be74-4412-8ae5-becb40bd5bab",
+                    "leftValue": "={{ $('Dispatcher Agent').item.json.output[0].content[0].text }}",
+                    "rightValue": "TIMELINE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Timeline Branch"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "084c2b0a-5310-468f-a6a5-614bd49d882c",
+                    "leftValue": "={{ $('Dispatcher Agent').item.json.output[0].content[0].text }}",
+                    "rightValue": "TASKS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Tasks Branch"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        688,
+        192
+      ],
+      "id": "0f3b1875-ca45-4869-bfba-4b93226bdf19",
+      "name": "Router - Switch node"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=User Question:\n{{ $('Chat Trigger').first().json.chatInput }}\n\nFile Context:\n{{ JSON.stringify($json) }}"
+            },
+            {
+              "role": "system",
+              "content": "Guardrail Rule: If the user request lacks core project parameters (such as scope, timeline, objectives, or target data sources) or is too vague (e.g., 'We want to build a chatbot'), you MUST NOT fabricate timelines or milestones. Instead, output a formal Clarification Request stating that project parameters are insufficient and asking for specific details."
+            },
+            {
+              "role": "system",
+              "content": "CRITICAL GUARDRAIL: Only trigger a refusal if the user prompt completely lacks any project topic or provides an unrelated subject (e.g. asking to build a chatbot when context is logistics). If valid project context files and descriptions are provided in the input payload, you MUST proceed to analyze and generate the requested output normally."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1376,
+        0
+      ],
+      "id": "ceffafe8-84ef-41a4-8631-00b71dfe70a9",
+      "name": "Project Planner & Scope Agent",
+      "credentials": {
+        "openAiApi": {
+          "id": "M0KjEvqLoxpqPPm7",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=User Question:\n{{ $('Chat Trigger').first().json.chatInput }}\n\nFile Context:\n{{ JSON.stringify($json) }}"
+            },
+            {
+              "role": "system",
+              "content": "Guardrail Rule: If the input prompt lacks specific start dates, milestones, or schedule parameters, do not fabricate a delivery timeline. Output a clarification request asking for target dates or schedule constraints."
+            },
+            {
+              "role": "system",
+              "content": "CRITICAL GUARDRAIL: Only trigger a refusal if the user prompt completely lacks any project topic or provides an unrelated subject (e.g. asking to build a chatbot when context is logistics). If valid project context files and descriptions are provided in the input payload, you MUST proceed to analyze and generate the requested output normally."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1376,
+        304
+      ],
+      "id": "a1a7b988-6687-401a-8e07-a030987eda0f",
+      "name": "Timeline & Schedule Advisor",
+      "credentials": {
+        "openAiApi": {
+          "id": "M0KjEvqLoxpqPPm7",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=User Question:\n{{ $('Chat Trigger').first().json.chatInput }}\n\nFile Context:\n{{ JSON.stringify($json) }}"
+            },
+            {
+              "role": "system",
+              "content": "Guardrail Rule: If the project context file or input description is missing, incomplete, or refers generically to an unnamed project (e.g., 'New project starting soon'), you MUST flag the missing input data and request specific project context before generating a risk matrix. Refuse to produce speculative risk scores without context."
+            },
+            {
+              "role": "system",
+              "content": "CRITICAL GUARDRAIL: Only trigger a refusal if the user prompt completely lacks any project topic or provides an unrelated subject (e.g. asking to build a chatbot when context is logistics). If valid project context files and descriptions are provided in the input payload, you MUST proceed to analyze and generate the requested output normally."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1376,
+        160
+      ],
+      "id": "ee8e37c8-683a-4c31-9a85-e865e7112f80",
+      "name": "Risk Assessor Agent",
+      "credentials": {
+        "openAiApi": {
+          "id": "M0KjEvqLoxpqPPm7",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=User Question:\n{{ $('Chat Trigger').first().json.chatInput }}\n\nFile Context:\n{{ JSON.stringify($json) }}"
+            },
+            {
+              "role": "system",
+              "content": "Guardrail Rule: If task board or progress data is completely missing or empty, do not manufacture status metrics. Explicitly state that source tracking data is unavailable and request the relevant task files."
+            },
+            {
+              "role": "system",
+              "content": "CRITICAL GUARDRAIL: Only trigger a refusal if the user prompt completely lacks any project topic or provides an unrelated subject (e.g. asking to build a chatbot when context is logistics). If valid project context files and descriptions are provided in the input payload, you MUST proceed to analyze and generate the requested output normally."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1424,
+        480
+      ],
+      "id": "c2f27dbe-dcf5-407a-8f39-34f5b1f78643",
+      "name": "Status Reporter Agent",
+      "credentials": {
+        "openAiApi": {
+          "id": "M0KjEvqLoxpqPPm7",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Mira. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -64,
+        240
+      ],
+      "id": "0bb9e99d-c477-4db4-bda2-94dda688ca85",
+      "name": "Chat Trigger",
+      "webhookId": "ef4f4d56-0dbc-4301-9617-1ed03cac6433"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $('Project Planner & Scope Agent').first().json.output;\n\nlet aiResponse;\n\nif (Array.isArray(out)) {\n  aiResponse = out\n    .flatMap(item => item?.content ?? [])\n    .map(c => c?.text)\n    .filter(Boolean)\n    .join('\\n\\n');\n} else if (typeof out === 'string') {\n  aiResponse = out;\n}\n\nif (!aiResponse) {\n  aiResponse = 'No response generated. Raw output: ' + JSON.stringify(out);\n}\n\nreturn [{ json: { text: aiResponse } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1888,
+        0
+      ],
+      "id": "a2e3c288-3d1f-4095-981f-da3f28bfe147",
+      "name": "Description Output"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $('Risk Assessor Agent').first().json.output;\n\nlet aiResponse;\n\nif (Array.isArray(out)) {\n  aiResponse = out\n    .flatMap(item => item?.content ?? [])\n    .map(c => c?.text)\n    .filter(Boolean)\n    .join('\\n\\n');\n} else if (typeof out === 'string') {\n  aiResponse = out;\n}\n\nif (!aiResponse) {\n  aiResponse = 'No response generated. Raw output: ' + JSON.stringify(out);\n}\n\nreturn [{ json: { text: aiResponse } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1888,
+        160
+      ],
+      "id": "5a98f35c-2963-4d9c-b9a9-32991b01445b",
+      "name": "Risks Output"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $('Timeline & Schedule Advisor').first().json.output;\n\nlet aiResponse;\n\nif (Array.isArray(out)) {\n  aiResponse = out\n    .flatMap(item => item?.content ?? [])\n    .map(c => c?.text)\n    .filter(Boolean)\n    .join('\\n\\n');\n} else if (typeof out === 'string') {\n  aiResponse = out;\n}\n\nif (!aiResponse) {\n  aiResponse = 'No response generated. Raw output: ' + JSON.stringify(out);\n}\n\nreturn [{ json: { text: aiResponse } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1904,
+        304
+      ],
+      "id": "b59502e1-c5ec-42ba-a5cc-3f1aa7f494ec",
+      "name": "Timeline Output"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = $('Status Reporter Agent').first().json.output;\n\nlet aiResponse;\n\nif (Array.isArray(out)) {\n  aiResponse = out\n    .flatMap(item => item?.content ?? [])\n    .map(c => c?.text)\n    .filter(Boolean)\n    .join('\\n\\n');\n} else if (typeof out === 'string') {\n  aiResponse = out;\n}\n\nif (!aiResponse) {\n  aiResponse = 'No response generated. Raw output: ' + JSON.stringify(out);\n}\n\nreturn [{ json: { text: aiResponse } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        480
+      ],
+      "id": "4f69a7c8-2361-43bd-a17e-ccf833d05e73",
+      "name": "Tasks Output"
+    },
+    {
+      "parameters": {
+        "promptName": "MIRA_DISPATCHER_PROMPT",
+        "requestOptions": {}
+      },
+      "type": "@langfuse/n8n-nodes-langfuse.langfuse",
+      "typeVersion": 1,
+      "position": [
+        96,
+        240
+      ],
+      "id": "2a14de9d-f2c1-43cd-a461-fa7d2827d42e",
+      "name": "Langfuse",
+      "credentials": {
+        "langfuseApi": {
+          "id": "kRG7yZalaZ7Yslxg",
+          "name": "Langfuse account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-langfuse-sdk-name",
+              "value": "n8n-integration"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"batch\": [\n    {\n      \"id\": \"{{ $execution.id }}-dispatcher-gen\",\n      \"type\": \"generation-create\",\n      \"timestamp\": \"{{ $now.toISO() }}\",\n      \"body\": {\n        \"id\": \"{{ $execution.id }}-dispatcher-obs\",\n        \"traceId\": \"{{ $execution.id }}-dispatcher\",\n        \"name\": \"MIRA_Intent_Dispatcher\",\n        \"model\": \"gpt-4o-mini\",\n        \"startTime\": \"{{ $('Langfuse').first().json.timestamp || $now.minus({ seconds: 2 }).toISO() }}\",\n        \"endTime\": \"{{ $now.toISO() }}\",\n        \"input\": {{ JSON.stringify($('Chat Trigger').first().json.chatInput) }},\n        \"output\": {{ JSON.stringify($json.output?.[0]?.content?.[0]?.text || $json.text || $json.output || 'SUCCESS') }},\n        \"metadata\": {\n          \"environment\": \"n8n_cloud\",\n          \"promptName\": \"MIRA_DISPATCHER_PROMPT\"\n        },\n        \"usage\": {\n          \"promptTokens\": {{ $json.usage?.input_tokens || 64 }},\n          \"completionTokens\": {{ $json.usage?.output_tokens || 4 }},\n          \"totalTokens\": {{ $json.usage?.total_tokens || 68 }}\n        }\n      }\n    }\n  ]\n}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        512,
+        416
+      ],
+      "id": "bd130fb8-8af2-4e27-a0c8-1968d6dd146e",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fEMAIFXxZgcx9mGO",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com/api/public/ingestion",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-langfuse-sdk-name",
+              "value": "n8n-integration"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"batch\": [\n    {\n      \"id\": \"{{ $execution.id }}-description-gen\",\n      \"type\": \"generation-create\",\n      \"timestamp\": \"{{ $now.toISO() }}\",\n      \"body\": {\n        \"id\": \"{{ $execution.id }}-description-obs\",\n        \"traceId\": \"{{ $execution.id }}-description\",\n        \"name\": \"MIRA_Description_Agent\",\n        \"model\": \"gpt-4o-mini\",\n        \"startTime\": \"{{ $('Langfuse').first().json.timestamp || $now.minus({ seconds: 2 }).toISO() }}\",\n        \"endTime\": \"{{ $now.toISO() }}\",\n        \"input\": {{ JSON.stringify($('Chat Trigger').first().json.chatInput) }},\n        \"output\": {{ JSON.stringify($json.output?.[0]?.content?.[0]?.text || $json.text || $json.output || 'SUCCESS') }},\n        \"metadata\": {\n          \"environment\": \"n8n_cloud\",\n          \"promptName\": \"MIRA_DESCRIPTION_PROMPT\"\n        },\n        \"usage\": {\n          \"promptTokens\": {{ $json.usage?.input_tokens || 120 }},\n          \"completionTokens\": {{ $json.usage?.output_tokens || 85 }},\n          \"totalTokens\": {{ $json.usage?.total_tokens || 205 }}\n        }\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1696,
+        0
+      ],
+      "id": "ce840c5d-be18-443a-82e7-bde8881db243",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fEMAIFXxZgcx9mGO",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com/api/public/ingestion",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-langfuse-sdk-name",
+              "value": "n8n-integration"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"batch\": [\n    {\n      \"id\": \"{{ $execution.id }}-risks-gen\",\n      \"type\": \"generation-create\",\n      \"timestamp\": \"{{ $now.toISO() }}\",\n      \"body\": {\n        \"id\": \"{{ $execution.id }}-risks-obs\",\n        \"traceId\": \"{{ $execution.id }}-risks\",\n        \"name\": \"MIRA_Risks_Agent\",\n        \"model\": \"gpt-4o-mini\",\n        \"startTime\": \"{{ DateTime.fromISO($execution.startedAt).toISO() || $now.toISO() }}\",\n        \"endTime\": \"{{ $now.toISO() }}\",\n        \"input\": {{ JSON.stringify($('Chat Trigger').first().json.chatInput) }},\n        \"output\": {{ JSON.stringify($json.output?.[0]?.content?.[0]?.text || $json.text || $json.output || 'SUCCESS') }},\n        \"metadata\": {\n          \"environment\": \"n8n_cloud\",\n          \"promptName\": \"MIRA_RISKS_PROMPT\"\n        },\n        \"usage\": {\n          \"promptTokens\": {{ $json.usage?.input_tokens || 120 }},\n          \"completionTokens\": {{ $json.usage?.output_tokens || 85 }},\n          \"totalTokens\": {{ $json.usage?.total_tokens || 205 }}\n        }\n      }\n    }\n  ]\n}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1696,
+        160
+      ],
+      "id": "9c2b3a7a-8c27-4bc8-96eb-78c3e2328d92",
+      "name": "HTTP Request2",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fEMAIFXxZgcx9mGO",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com/api/public/ingestion",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-langfuse-sdk-name",
+              "value": "n8n-integration"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"batch\": [\n    {\n      \"id\": \"{{ $execution.id }}-timeline-gen\",\n      \"type\": \"generation-create\",\n      \"timestamp\": \"{{ $now.toISO() }}\",\n      \"body\": {\n        \"id\": \"{{ $execution.id }}-timeline-obs\",\n        \"traceId\": \"{{ $execution.id }}-timeline\",\n        \"name\": \"MIRA_Timeline_Agent\",\n        \"model\": \"gpt-4o-mini\",\n        \"startTime\": \"{{ DateTime.fromISO($execution.startedAt).toISO() || $now.toISO() }}\",\n        \"endTime\": \"{{ $now.toISO() }}\",\n        \"input\": {{ JSON.stringify($('Chat Trigger').first().json.chatInput) }},\n        \"output\": {{ JSON.stringify($json.output?.[0]?.content?.[0]?.text || $json.text || $json.output || 'SUCCESS') }},\n        \"metadata\": {\n          \"environment\": \"n8n_cloud\",\n          \"promptName\": \"MIRA_TIMELINE_PROMPT\"\n        },\n        \"usage\": {\n          \"promptTokens\": {{ $json.usage?.input_tokens || 120 }},\n          \"completionTokens\": {{ $json.usage?.output_tokens || 85 }},\n          \"totalTokens\": {{ $json.usage?.total_tokens || 205 }}\n        }\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1712,
+        304
+      ],
+      "id": "1d9fe90a-85b3-4f27-b28a-91edd405b565",
+      "name": "HTTP Request3",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fEMAIFXxZgcx9mGO",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com/api/public/ingestion",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-langfuse-sdk-name",
+              "value": "n8n-integration"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"batch\": [\n    {\n      \"id\": \"{{ $execution.id }}-tasks-gen\",\n      \"type\": \"generation-create\",\n      \"timestamp\": \"{{ $now.toISO() }}\",\n      \"body\": {\n        \"id\": \"{{ $execution.id }}-tasks-obs\",\n        \"traceId\": \"{{ $execution.id }}-tasks\",\n        \"name\": \"MIRA_Tasks_Agent\",\n        \"model\": \"gpt-4o-mini\",\n        \"startTime\": \"{{ $now.minus({ seconds: 2 }).toISO() }}\",\n        \"endTime\": \"{{ $now.toISO() }}\",\n        \"input\": {{ JSON.stringify($('Chat Trigger').first().json.chatInput) }},\n        \"output\": {{ JSON.stringify($json.output?.[0]?.content?.[0]?.text || $json.text || $json.output || 'SUCCESS') }},\n        \"metadata\": {\n          \"environment\": \"n8n_cloud\",\n          \"promptName\": \"MIRA_TASKS_PROMPT\"\n        },\n        \"usage\": {\n          \"promptTokens\": {{ $json.usage?.input_tokens || 120 }},\n          \"completionTokens\": {{ $json.usage?.output_tokens || 85 }},\n          \"totalTokens\": {{ $json.usage?.total_tokens || 205 }}\n        }\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1728,
+        480
+      ],
+      "id": "8ee85be3-04f5-4885-a545-99df8c2a566b",
+      "name": "HTTP Request4",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fEMAIFXxZgcx9mGO",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "724d471a-8069-45eb-a12e-e8f6fcc4fafa",
+              "name": "text",
+              "value": "I'm focused on Project MIRA. I can help you with the project description, risks, timeline, or tasks. Could you clarify your request?",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        912,
+        656
+      ],
+      "id": "212804b8-0373-4c52-be29-e94083dfc33f",
+      "name": "Error Fallback"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        576
+      ],
+      "id": "5ba236f5-4157-4bcd-aeee-0dbbb4710d01",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1llyusEEddm4z9KKQhmtX5NmYbHifXq1L",
+          "mode": "list",
+          "cachedResultName": "Mira_project_description.txt",
+          "cachedResultUrl": "https://drive.google.com/file/d/1llyusEEddm4z9KKQhmtX5NmYbHifXq1L/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        464,
+        912
+      ],
+      "id": "64338a4a-6870-4353-974d-6ee933563088",
+      "name": "Project_description1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1qHGyeilrDtOPPKu6YEQTv_a6XxttD6qh",
+          "mode": "list",
+          "cachedResultName": "Mira_project_risks.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/1qHGyeilrDtOPPKu6YEQTv_a6XxttD6qh/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        816,
+        912
+      ],
+      "id": "7430cc98-d870-46d9-8b9a-9fd453f3e725",
+      "name": "Project_risks1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "16sYvfvBpOgoul9p0uDb4eb1PFF80ZEH_",
+          "mode": "list",
+          "cachedResultName": "Mira_project_timeline.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/16sYvfvBpOgoul9p0uDb4eb1PFF80ZEH_/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1168,
+        912
+      ],
+      "id": "e80accfd-d3d5-455e-b331-a1f4db675ae9",
+      "name": "Project_timeline1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1yiK07fGLREs82uDm0C3LAxVu-VX20JPn",
+          "mode": "list",
+          "cachedResultName": "Mira_sample_task_board.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/1yiK07fGLREs82uDm0C3LAxVu-VX20JPn/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1504,
+        912
+      ],
+      "id": "59fd5ac9-d517-44b6-8007-430ac305179c",
+      "name": "Sample_task_bar1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        912
+      ],
+      "id": "15e2298a-11e0-4e7d-8def-632fef7040fd",
+      "name": "Extract from File4"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        992,
+        912
+      ],
+      "id": "8408041f-bfc1-4148-9d0f-21fbebd9b1f8",
+      "name": "Extract from File5"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        912
+      ],
+      "id": "9bee040c-f438-4e83-b7f4-38341e978cd7",
+      "name": "Extract from File6"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        912
+      ],
+      "id": "744a5646-874b-46b8-83a3-9f3ac2f69ff6",
+      "name": "Extract from File7"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        304,
+        912
+      ],
+      "id": "13f5b331-71a2-4b35-886e-7bbbd993eeeb",
+      "name": "weekly status Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Take only a safe slice or concise summary of the items/files to prevent token overflow\nconst description = items[0]?.json?.text || items[0]?.json?.data || \"Project MIRA Status Data\";\n\n\n// Map and limit data rows if the files contain large lists or logs\nconst tasks = JSON.stringify(items.slice(0, 50).map(item => item.json));\n\nconst rawCombinedPrompt = `\n=== PROJECT DESCRIPTION ===\n${description}\n\n=== PROJECT DATA & TASKS (TRUNCATED) ===\n${tasks}\n`.trim();\n\nconst safePrompt = rawCombinedPrompt\n  .replace(/\\\\/g, '\\\\\\\\')\n  .replace(/\"/g, '\\\\\"')\n  .replace(/\\r?\\n/g, '\\\\n');\n\nreturn [{\n  json: {\n    combinedPrompt: safePrompt\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1824,
+        912
+      ],
+      "id": "f9aa75cf-935b-43f9-9e52-c9c7c73c551a",
+      "name": "Aggregate Project Data"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst currentItem = items[0]?.json || {};\n\nconst rawContent = currentItem.choices?.[0]?.message?.content || \n                  currentItem.body?.choices?.[0]?.message?.content || \n                  currentItem.data?.choices?.[0]?.message?.content ||\n                  \"No report generated.\";\n\n// Convert double-escaped literal '\\n' sequences into actual clean newlines\nconst cleanedReport = rawContent\n  .replace(/\\\\n/g, '\\n')\n  .replace(/\\n\\s*-\\s*\\n/g, '\\n- '); // Fixes orphan bullet points like \"\\n-\\n\"\n\nreturn [{\n  json: {\n    reportContent: cleanedReport,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        912
+      ],
+      "id": "9188bdab-2ad4-422c-b898-746423e85e98",
+      "name": "Format LLM Output & Duration"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert Enterprise Program Management Leader. Your task is to analyze the provided project description, risks, timeline, and task board data to synthesize a clear, concise, executive weekly status report.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.combinedPrompt }}\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1968,
+        912
+      ],
+      "id": "9130a046-2d02-4779-aa9d-176479d424eb",
+      "name": "HTTP Request5",
+      "credentials": {
+        "openAiApi": {
+          "id": "M0KjEvqLoxpqPPm7",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }\n    h1, h2, h3 { color: #1a365d; }\n    hr { border: 0; height: 1px; background: #e2e8f0; margin: 20px 0; }\n    ul { margin-left: 20px; }\n  </style>\n</head>\n<body>\n  <div>{{ $json.reportContent.replace(/\\n/g, '<br>') }}</div>\n</body>\n</html>"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        2256,
+        912
+      ],
+      "id": "26ab0126-6519-4fa6-aa38-37ad2ebe6761",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $('Format LLM Output & Duration').first().json.reportContent }}",
+        "name": "=Project_MIRA_Weekly_Report_{{ $now.format('YYYY-MM-DD') }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1f70Z_Apj4WYKA9_JrthbL2NSqmggNs57",
+          "mode": "list",
+          "cachedResultName": "MIRA_Project_resources",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1f70Z_Apj4WYKA9_JrthbL2NSqmggNs57"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2400,
+        912
+      ],
+      "id": "a073b74d-c567-47e7-aac8-db534f914264",
+      "name": "Create file from text",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=[https://www.googleapis.com/drive/v3/files/](https://www.googleapis.com/drive/v3/files/){{ $json.id }}/export?mimeType=application/pdf",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2512,
+        704
+      ],
+      "id": "b6044338-6757-4447-9cde-f560cac985a3",
+      "name": "HTTP Request6",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "W1qwalOPgfuVHKPw",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Project_description": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project_risks": {
+      "main": [
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project_timeline": {
+      "main": [
+        [
+          {
+            "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample_task_bar": {
+      "main": [
+        [
+          {
+            "node": "Extract from File3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Project Planner & Scope Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Risk Assessor Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "node": "Timeline & Schedule Advisor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File3": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dispatcher Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router - Switch node": {
+      "main": [
+        [
+          {
+            "node": "Project_description",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Project_risks",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Project_timeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sample_task_bar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Fallback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project Planner & Scope Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Risk Assessor Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "Langfuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Timeline & Schedule Advisor": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status Reporter Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Langfuse": {
+      "main": [
+        [
+          {
+            "node": "Dispatcher Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Router - Switch node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Description Output": {
+      "main": [
+        []
+      ]
+    },
+    "Risks Output": {
+      "main": [
+        []
+      ]
+    },
+    "Timeline Output": {
+      "main": [
+        []
+      ]
+    },
+    "Tasks Output": {
+      "main": [
+        []
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Status Reporter Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Risks Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Description Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Timeline Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request4": {
+      "main": [
+        [
+          {
+            "node": "Tasks Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project_description1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project_risks1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project_timeline1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample_task_bar1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File4": {
+      "main": [
+        [
+          {
+            "node": "Project_risks1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File5": {
+      "main": [
+        [
+          {
+            "node": "Project_timeline1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File6": {
+      "main": [
+        [
+          {
+            "node": "Sample_task_bar1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "weekly status Trigger": {
+      "main": [
+        [
+          {
+            "node": "Project_description1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File7": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Project Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Project Data": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request5": {
+      "main": [
+        [
+          {
+            "node": "Format LLM Output & Duration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format LLM Output & Duration": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Create file from text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create file from text": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request6": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "s0Gg59wbGCe4HWnt",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "fc8da379-cbe5-41fb-8f92-7c0cf69ac2b5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ef40de8c96cc8e165832dfdf7d77930605fcd770d8c6634eade56aa7c44039d2"
+  },
+  "nodeGroups": [],
+  "id": "K6momU4qfb2NogQf",
+  "tags": []
+}

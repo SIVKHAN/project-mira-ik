@@ -1,0 +1,105 @@
+{
+  "name": "MIRA Error Handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        32
+      ],
+      "id": "cf35339d-4879-4b2b-8f62-88a444efaf79",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    failedNode: $json.execution?.error?.node?.name || \"Unknown Node\",\n    errorMessage: $json.execution?.error?.message || \"Unknown Error\",\n    executionId: $json.execution?.id || \"unknown\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        32
+      ],
+      "id": "f46a4d0f-9c68-4a5c-a1a6-3a5b33f39cdf",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.cloud.langfuse.com/api/public/ingestion",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-langfuse-sdk-name",
+              "value": "n8n-integration"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"batch\": [\n    {\n      \"id\": \"{{ $json.executionId }}-error\",\n      \"type\": \"event-create\",\n      \"timestamp\": \"{{ $now.toISO() }}\",\n      \"body\": {\n        \"id\": \"{{ $json.executionId }}-obs-error\",\n        \"traceId\": \"{{ $json.executionId }}-error-trace\",\n        \"name\": \"MIRA_Workflow_Error\",\n        \"level\": \"ERROR\",\n        \"statusMessage\": \"{{ $json.errorMessage }}\",\n        \"startTime\": \"{{ $now.minus({ seconds: 10 }).toISO() }}\",\n        \"endTime\": \"{{ $now.toISO() }}\",\n        \"metadata\": {\n          \"failedNode\": \"{{ $json.failedNode }}\",\n          \"environment\": \"n8n_cloud\"\n        }\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        32
+      ],
+      "id": "62fbab9c-8b41-452e-bc30-5efed9332d08",
+      "name": "HTTP Request5",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "3I2ij5Exwrwr1Fub",
+          "name": "Unnamed credential"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "366947f6-c0f4-49f7-91f6-88bd8f77b523",
+  "meta": {
+    "instanceId": "ef40de8c96cc8e165832dfdf7d77930605fcd770d8c6634eade56aa7c44039d2"
+  },
+  "nodeGroups": [],
+  "id": "s0Gg59wbGCe4HWnt",
+  "tags": []
+}
